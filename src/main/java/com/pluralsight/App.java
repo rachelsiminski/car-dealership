@@ -2,8 +2,8 @@ package com.pluralsight;
 
 public class App {
     public static void main(String[] args) {
-        //DealershipFileManager dealershipFileManager = new DealershipFileManager();
+        UserInterface userInterface = new UserInterface();
 
-        //dealershipFileManager.getDealership();
+        userInterface.display();
     }
 }

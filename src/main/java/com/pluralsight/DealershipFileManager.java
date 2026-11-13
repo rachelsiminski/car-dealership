@@ -45,7 +45,7 @@ public class DealershipFileManager {
         } catch (IOException e) {
             System.out.println("Error reading file");
         }
-        return null;
+        return dealership;
     }
 
     public void saveDealership(Dealership dealership) {
