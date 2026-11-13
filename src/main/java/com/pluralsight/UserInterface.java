@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class UserInterface {
     private Dealership dealership;
+    private final Scanner scanner = new Scanner(System.in);
 
     private void init() {
         DealershipFileManager dealershipFileManager = new DealershipFileManager();
@@ -18,7 +19,6 @@ public class UserInterface {
 
     public void display() {
         init();
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println(" - Welcome to the " + dealership.getName() + " Inventory Management System -");
         while (true) {
@@ -33,21 +33,23 @@ public class UserInterface {
                     \t[8] Add Vehicle
                     \t[9] Remove Vehicle
                     \t[0] Exit""");
+            System.out.println();
+            System.out.print("Enter your selection: ");
+            System.out.println();
 
-            int choice = scanner.nextInt();
-            scanner.next();
+            String choice = scanner.nextLine();
 
             switch (choice) {
-                case 1 -> processGetByPriceRequest();
-                case 2 -> processGetByMakeModelRequest();
-                case 3 -> processGetByYearRequest();
-                case 4 -> processGetByColorRequest();
-                case 5 -> processGetByMileageRequest();
-                case 6 -> processGetByVehicleTypeRequest();
-                case 7 -> processGetAllVehiclesRequest();
-                case 8 -> processAddVehicleRequest();
-                case 9 -> processRemoveVehicleRequest();
-                case 0 -> {
+                case "1" -> processGetByPriceRequest();
+                case "2" -> processGetByMakeModelRequest();
+                case "3" -> processGetByYearRequest();
+                case "4" -> processGetByColorRequest();
+                case "5" -> processGetByMileageRequest();
+                case "6" -> processGetByVehicleTypeRequest();
+                case "7" -> processGetAllVehiclesRequest();
+                case "8" -> processAddVehicleRequest();
+                case "9" -> processRemoveVehicleRequest();
+                case "0" -> {
                     System.out.println("Goodbye! Thank you for using the inventory management system!");
                     System.exit(0);
                 }
@@ -59,7 +61,7 @@ public class UserInterface {
     private void displayVehicles(ArrayList<Vehicle> inventory) {
         if (!inventory.isEmpty()) {
             System.out.println();
-            System.out.println( "----------" );
+            System.out.println( "-------------------------------------------------------------------------------------------------------" );
             System.out.printf("|%s|%s|%s|%s|%s|%s|%s| $%s|%n", center("VIN", 10),
                     center("YEAR", 10),
                     center("MAKE", 12),
@@ -68,6 +70,8 @@ public class UserInterface {
                     center("COLOR", 12),
                     center("MILEAGE", 12),
                     center("PRICE", 12));
+            System.out.println();
+
             for (Vehicle vehicle : inventory) {
                 System.out.printf("|%s|%s|%s|%s|%s|%s|%s| $%s|%n",
                         center(Integer.toString(vehicle.getVin()), 10),
@@ -82,6 +86,8 @@ public class UserInterface {
         } else {
             System.out.println("No vehicles found matching this request.");
         }
+
+        pressEnterToContinue();
 
     }
 
@@ -131,9 +137,9 @@ public class UserInterface {
 
     }
 
-//    private static void pressEnterToContinue() {
-//        System.out.println();
-//        System.out.println("Press enter to return to the menu...");
-//        scanner.nextLine();
-//    }
+    private void pressEnterToContinue() {
+        System.out.println();
+        System.out.println("Press enter to return to the menu...");
+        scanner.nextLine();
+    }
 }
