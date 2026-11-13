@@ -114,11 +114,11 @@ public class UserInterface {
     }
 
     public void processGetByColorRequest() {
-
+        displayVehicles(dealership.getVehiclesByColor(promptForString()));
     }
 
     public void processGetByMileageRequest() {
-
+        displayVehicles(dealership.getVehiclesByMileage(promptForInt(), promptForInt()));
     }
 
     public void processGetByVehicleTypeRequest() {
