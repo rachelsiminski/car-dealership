@@ -102,7 +102,7 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest() {
-
+        displayVehicles(dealership.getVehiclesByPrice(promptForString(), promptForString()));
     }
 
     public void processGetByMakeModelRequest() {
@@ -135,6 +135,24 @@ public class UserInterface {
 
     public void processRemoveVehicleRequest() {
 
+    }
+
+    public String promptForString() {
+        String string;
+
+        while (true) {
+            string = scanner.nextLine().trim().toLowerCase();
+
+            if (string.isEmpty()) {
+                System.out.println("Input not recorded, please try again!");
+                continue;
+            }
+            if (string.contains("|")) {
+                System.out.println("Please do not use '|', try again.");
+                continue;
+            }
+            return string;
+        }
     }
 
     private void pressEnterToContinue() {
