@@ -130,11 +130,40 @@ public class UserInterface {
     }
 
     public void processAddVehicleRequest() {
-
+        dealership.addVehicle(collectVehicleInformation());
     }
 
     public void processRemoveVehicleRequest() {
+        dealership.removeVehicle(collectVehicleInformation());
+    }
 
+    public Vehicle collectVehicleInformation() {
+        System.out.print("Enter the Vehicle Identification Number (VIN): ");
+        int vin = promptForInt();
+        System.out.println();
+        System.out.print("Enter the Year: ");
+        int year = promptForInt();
+        System.out.println();
+        System.out.print("Enter the Make: ");
+        String make = promptForString();
+        System.out.println();
+        System.out.print("Enter the Model: ");
+        String model = promptForString();
+        System.out.println();
+        System.out.print("Enter the Vehicle Type: ");
+        String type = promptForString();
+        System.out.println();
+        System.out.print("Enter the Color: ");
+        String color = promptForString();
+        System.out.println();
+        System.out.print("Enter the Odometer Reading: ");
+        int mileage = promptForInt();
+        System.out.println();
+        System.out.print("Enter the Price: ");
+        String price = promptForString();
+        System.out.println();
+
+        return new Vehicle(vin, year, make, model, type, color, mileage, new BigDecimal(price));
     }
 
     public String promptForString() {

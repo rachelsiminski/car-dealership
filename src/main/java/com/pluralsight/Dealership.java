@@ -44,10 +44,6 @@ public class Dealership {
         return inventory;
     }
 
-    //public void setInventory(ArrayList<Vehicle> inventory) {
-    //    this.inventory = inventory;
-    //}
-
     public ArrayList<Vehicle> getVehiclesByPrice(String min, String max) {
         ArrayList<Vehicle> byPrice = new ArrayList<>();
 
