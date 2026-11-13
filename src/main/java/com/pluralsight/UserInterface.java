@@ -122,7 +122,7 @@ public class UserInterface {
     }
 
     public void processGetByVehicleTypeRequest() {
-
+        displayVehicles(dealership.getVehiclesByType(promptForString()));
     }
 
     public void processGetAllVehiclesRequest() {
