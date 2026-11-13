@@ -44,9 +44,9 @@ public class Dealership {
         return inventory;
     }
 
-    public void setInventory(ArrayList<Vehicle> inventory) {
-        this.inventory = inventory;
-    }
+    //public void setInventory(ArrayList<Vehicle> inventory) {
+    //    this.inventory = inventory;
+    //}
 
     public ArrayList<Vehicle> getVehiclesByPrice(String min, String max) {
         ArrayList<Vehicle> byPrice = new ArrayList<>();
@@ -60,11 +60,25 @@ public class Dealership {
     }
 
     public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
-        return null;
+        ArrayList<Vehicle> byMakeModel = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if (vehicle.getMake().equalsIgnoreCase(make) && vehicle.getModel().equalsIgnoreCase(model)) {
+                byMakeModel.add(vehicle);
+            }
+        }
+        return byMakeModel;
     }
 
     public ArrayList<Vehicle> getVehiclesByYear(int year) {
-        return null;
+        ArrayList<Vehicle> byYear = new ArrayList<>();
+
+        for (Vehicle vehicle : inventory) {
+            if (vehicle.getYear() == year) {
+                byYear.add(vehicle);
+            }
+        }
+        return byYear;
     }
 
     public ArrayList<Vehicle> getVehiclesByColor(String color) {

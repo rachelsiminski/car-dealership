@@ -106,11 +106,11 @@ public class UserInterface {
     }
 
     public void processGetByMakeModelRequest() {
-
+        displayVehicles(dealership.getVehiclesByMakeModel(promptForString(), promptForString()));
     }
 
     public void processGetByYearRequest() {
-
+        displayVehicles(dealership.getVehiclesByYear(promptForInt()));
     }
 
     public void processGetByColorRequest() {
@@ -142,7 +142,6 @@ public class UserInterface {
 
         while (true) {
             string = scanner.nextLine().trim().toLowerCase();
-
             if (string.isEmpty()) {
                 System.out.println("Input not recorded, please try again!");
                 continue;
@@ -152,6 +151,27 @@ public class UserInterface {
                 continue;
             }
             return string;
+        }
+    }
+
+    public int promptForInt() {
+        String number;
+
+        while (true) {
+            number = scanner.nextLine();
+            if (number.isEmpty()) {
+                System.out.println("Number not recorded, please try again!");
+                continue;
+            }
+            if (number.contains("|")) {
+                System.out.println("Please do not use '|', try again.");
+                continue;
+            }
+            try {
+                return Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                System.out.println("Unable to parse number, try again");
+            }
         }
     }
 
