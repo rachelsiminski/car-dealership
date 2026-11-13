@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
+    private DealershipFileManager dealershipFileManager;
     private Dealership dealership;
     private final Scanner scanner = new Scanner(System.in);
 
     private void init() {
-        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+        dealershipFileManager = new DealershipFileManager();
         this.dealership = dealershipFileManager.getDealership();
     }
 
@@ -34,22 +35,20 @@ public class UserInterface {
                     \t[9] Remove Vehicle
                     \t[0] Exit""");
             System.out.println();
-            System.out.print("Enter your selection: ");
-            System.out.println();
 
-            String choice = scanner.nextLine();
+            int choice = promptForInt("Enter your selection: ");
 
             switch (choice) {
-                case "1" -> processGetByPriceRequest();
-                case "2" -> processGetByMakeModelRequest();
-                case "3" -> processGetByYearRequest();
-                case "4" -> processGetByColorRequest();
-                case "5" -> processGetByMileageRequest();
-                case "6" -> processGetByVehicleTypeRequest();
-                case "7" -> processGetAllVehiclesRequest();
-                case "8" -> processAddVehicleRequest();
-                case "9" -> processRemoveVehicleRequest();
-                case "0" -> {
+                case 1 -> processGetByPriceRequest();
+                case 2 -> processGetByMakeModelRequest();
+                case 3 -> processGetByYearRequest();
+                case 4 -> processGetByColorRequest();
+                case 5 -> processGetByMileageRequest();
+                case 6 -> processGetByVehicleTypeRequest();
+                case 7 -> processGetAllVehiclesRequest();
+                case 8 -> processAddVehicleRequest();
+                case 9 -> processRemoveVehicleRequest();
+                case 0 -> {
                     System.out.println("Goodbye! Thank you for using the inventory management system!");
                     System.exit(0);
                 }
@@ -59,6 +58,7 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> inventory) {
+        System.out.println("DISPLAY");
         if (!inventory.isEmpty()) {
             System.out.println();
             System.out.println( "-------------------------------------------------------------------------------------------------------" );
@@ -102,27 +102,27 @@ public class UserInterface {
     }
 
     public void processGetByPriceRequest() {
-        displayVehicles(dealership.getVehiclesByPrice(promptForString(), promptForString()));
+        displayVehicles(dealership.getVehiclesByPrice(promptForString("Enter the minimum price: "), promptForString("Enter the maximum price: ")));
     }
 
     public void processGetByMakeModelRequest() {
-        displayVehicles(dealership.getVehiclesByMakeModel(promptForString(), promptForString()));
+        displayVehicles(dealership.getVehiclesByMakeModel(promptForString("Enter the make: "), promptForString("Enter the model: ")));
     }
 
     public void processGetByYearRequest() {
-        displayVehicles(dealership.getVehiclesByYear(promptForInt()));
+        displayVehicles(dealership.getVehiclesByYear(promptForInt("Enter the year: ")));
     }
 
     public void processGetByColorRequest() {
-        displayVehicles(dealership.getVehiclesByColor(promptForString()));
+        displayVehicles(dealership.getVehiclesByColor(promptForString("Enter the color: ")));
     }
 
     public void processGetByMileageRequest() {
-        displayVehicles(dealership.getVehiclesByMileage(promptForInt(), promptForInt()));
+        displayVehicles(dealership.getVehiclesByMileage(promptForInt("Enter the minimum miles: "), promptForInt("Enter the maximum miles: ")));
     }
 
     public void processGetByVehicleTypeRequest() {
-        displayVehicles(dealership.getVehiclesByType(promptForString()));
+        displayVehicles(dealership.getVehiclesByType(promptForString("Enter the vehicle type: ")));
     }
 
     public void processGetAllVehiclesRequest() {
@@ -131,42 +131,37 @@ public class UserInterface {
 
     public void processAddVehicleRequest() {
         dealership.addVehicle(collectVehicleInformation());
+        dealershipFileManager.saveDealership(dealership);
     }
 
     public void processRemoveVehicleRequest() {
         dealership.removeVehicle(collectVehicleInformation());
+        dealershipFileManager.saveDealership(dealership);
     }
 
     public Vehicle collectVehicleInformation() {
-        System.out.print("Enter the Vehicle Identification Number (VIN): ");
-        int vin = promptForInt();
+        int vin = promptForInt("Enter the Vehicle Identification Number (VIN): ");
         System.out.println();
-        System.out.print("Enter the Year: ");
-        int year = promptForInt();
+        int year = promptForInt("Enter the Year: ");
         System.out.println();
-        System.out.print("Enter the Make: ");
-        String make = promptForString();
+        String make = promptForString("Enter the Make: ");
         System.out.println();
-        System.out.print("Enter the Model: ");
-        String model = promptForString();
+        String model = promptForString("Enter the Model: ");
         System.out.println();
-        System.out.print("Enter the Vehicle Type: ");
-        String type = promptForString();
+        String type = promptForString("Enter the Vehicle Type: ");
         System.out.println();
-        System.out.print("Enter the Color: ");
-        String color = promptForString();
+        String color = promptForString("Enter the Color: ");
         System.out.println();
-        System.out.print("Enter the Odometer Reading: ");
-        int mileage = promptForInt();
+        int mileage = promptForInt("Enter the Odometer Reading: ");
         System.out.println();
-        System.out.print("Enter the Price: ");
-        String price = promptForString();
+        String price = promptForString("Enter the Price: ");
         System.out.println();
 
         return new Vehicle(vin, year, make, model, type, color, mileage, new BigDecimal(price));
     }
 
-    public String promptForString() {
+    public String promptForString(String prompt) {
+        System.out.print(prompt);
         String string;
 
         while (true) {
@@ -183,7 +178,8 @@ public class UserInterface {
         }
     }
 
-    public int promptForInt() {
+    public int promptForInt(String prompt) {
+        System.out.println(prompt);
         String number;
 
         while (true) {
