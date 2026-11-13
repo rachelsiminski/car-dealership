@@ -47,12 +47,10 @@ public class DealershipFileManager {
 
     public void saveDealership(Dealership dealership) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("dealership-inventory.csv", true));
-
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("dealership-inventory.csv"));
             for (Vehicle vehicle : dealership.getInventory()) {
-                bufferedWriter.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice());
+                bufferedWriter.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice() + "\n");
             }
-
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Unable to write to file.");

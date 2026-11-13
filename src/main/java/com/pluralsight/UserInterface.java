@@ -157,7 +157,7 @@ public class UserInterface {
         String price = promptForString("Enter the Price: ");
         System.out.println();
 
-        return new Vehicle(vin, year, make, model, type, color, mileage, new BigDecimal(price));
+        return new Vehicle(vin, year, make, model, type, color, mileage, new BigDecimal(price).setScale(2));
     }
 
     public String promptForString(String prompt) {
@@ -165,7 +165,7 @@ public class UserInterface {
         String string;
 
         while (true) {
-            string = scanner.nextLine().trim().toLowerCase();
+            string = scanner.nextLine().trim();
             if (string.isEmpty()) {
                 System.out.println("Input not recorded, please try again!");
                 continue;
