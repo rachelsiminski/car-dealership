@@ -1,9 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 
 public class DealershipFileManager {
@@ -49,7 +46,16 @@ public class DealershipFileManager {
     }
 
     public void saveDealership(Dealership dealership) {
-        // will eventually overwrite the inventory
-        // file with the most current dealership info
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("dealership-inventory.csv", true));
+
+            for (Vehicle vehicle : dealership.getInventory()) {
+                bufferedWriter.write(vehicle.getVin() + "|" + vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice());
+            }
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write to file.");
+        }
     }
 }
