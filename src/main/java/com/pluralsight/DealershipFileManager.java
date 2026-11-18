@@ -14,7 +14,6 @@ public class DealershipFileManager {
             String line = bufferedReader.readLine();
             String[] dealerName = line.split("\\|");
             dealership = new Dealership(dealerName[0], dealerName[1], dealerName[2]);
-            System.out.println(dealership.getName() + " " + dealership.getAddress() + " " + dealership.getPhone());
 
             int count = 0;
 
@@ -36,6 +35,9 @@ public class DealershipFileManager {
                 }
             }
             System.out.println("File read successful!");
+            System.out.println();
+            System.out.println("Dealership Information: ");
+            System.out.println(dealership.getName() + " " + dealership.getAddress() + " " + dealership.getPhone());
             System.out.println();
         } catch (IOException e) {
             System.out.println("Error reading file");
