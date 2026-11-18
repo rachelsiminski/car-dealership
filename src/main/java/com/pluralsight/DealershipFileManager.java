@@ -11,18 +11,16 @@ public class DealershipFileManager {
         System.out.println();
         System.out.println();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("dealership-inventory.csv"))) {
-            bufferedReader.readLine();
+            String line = bufferedReader.readLine();
+            String[] dealerName = line.split("\\|");
+            dealership = new Dealership(dealerName[0], dealerName[1], dealerName[2]);
 
-            String line;
             int count = 0;
 
             while ((line = bufferedReader.readLine()) != null) {
                 if (!line.isBlank()) {
                     String[] fields = line.split("\\|");
-                    if (count == 0) {
-                        dealership = new Dealership(fields[0], fields[1], fields[2]);
-                        count++;
-                    } else if (fields.length != 8) {
+                    if (fields.length != 8) {
                         System.out.println("Skipping malformed line #" + count + ": " + line);
                         count++;
                     }
