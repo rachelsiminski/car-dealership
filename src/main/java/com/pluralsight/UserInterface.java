@@ -58,7 +58,6 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> inventory) {
-        System.out.println("DISPLAY");
         if (!inventory.isEmpty()) {
             System.out.println();
             System.out.println( "-------------------------------------------------------------------------------------------------------" );
@@ -110,7 +109,7 @@ public class UserInterface {
     }
 
     public void processGetByYearRequest() {
-        displayVehicles(dealership.getVehiclesByYear(promptForInt("Enter the year: ")));
+        displayVehicles(dealership.getVehiclesByYear(promptForInt("Enter the minimum year: "), promptForInt("Enter the maximum year: ")));
     }
 
     public void processGetByColorRequest() {
