@@ -135,7 +135,11 @@ public class UserInterface {
     }
 
     public void processRemoveVehicleRequest() {
-        dealership.removeVehicle(collectVehicleInformation());
+        for (Vehicle vehicle : dealership.getInventory()) {
+            if (vehicle.getVin() == promptForInt("Enter the VIN: ")) {
+                dealership.removeVehicle(vehicle);
+            }
+        }
         dealershipFileManager.saveDealership(dealership);
     }
 
