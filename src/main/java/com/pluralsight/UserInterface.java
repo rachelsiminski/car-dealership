@@ -3,6 +3,7 @@ package com.pluralsight;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class UserInterface {
     private DealershipFileManager dealershipFileManager;
@@ -134,10 +135,19 @@ public class UserInterface {
     }
 
     public void processRemoveVehicleRequest() {
+        int tempVin = promptForInt("Enter the VIN: ");
+        ArrayList<Vehicle> toRemove = new ArrayList<>();
         for (Vehicle vehicle : dealership.getInventory()) {
-            if (vehicle.getVin() == promptForInt("Enter the VIN: ")) {
-                dealership.removeVehicle(vehicle);
+            if (vehicle.getVin() == tempVin) {
+                toRemove.add(vehicle);
             }
+        }
+
+        if (!toRemove.isEmpty()) {
+            displayVehicles(toRemove);
+            dealership.removeVehicle(toRemove.get(0));
+        } else {
+            System.out.println("No Vehicles to Remove");
         }
         dealershipFileManager.saveDealership(dealership);
     }
